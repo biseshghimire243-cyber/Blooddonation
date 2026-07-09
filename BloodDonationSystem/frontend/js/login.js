@@ -41,19 +41,21 @@ document.getElementById("loginForm").addEventListener("submit", async(e)=>{
 
         const data = await response.json();
 
-        if(data.success){
+       if (data.success) {
 
-            alert("Login Successful");
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("username", data.user.username);
+    localStorage.setItem("role", data.user.role);
 
-            localStorage.setItem("token",data.token);
+    alert("Login Successful");
 
-            window.location.href="dashboard.html";
+    window.location.href = "dashboard.html";
 
-        }else{
+} else {
 
-            alert(data.message);
+    alert(data.message);
 
-        }
+}
 
     }catch(error){
 

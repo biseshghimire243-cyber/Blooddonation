@@ -2,16 +2,17 @@ document.getElementById("registerForm").addEventListener("submit", async (e) => 
 
     e.preventDefault();
 
-    const user = {
+   const user = {
 
-        username: document.getElementById("username").value,
-        password: document.getElementById("password").value,
-        blood_group: document.getElementById("blood_group").value,
-        phone: document.getElementById("phone").value,
-        address: document.getElementById("address").value,
-        availability: document.getElementById("availability").value
+    fullname: document.getElementById("fullname").value,
+    email: document.getElementById("email").value,
+    phone: document.getElementById("phone").value,
+    password: document.getElementById("password").value,
+    blood_group: document.getElementById("blood_group").value,
+    address: document.getElementById("address").value,
+    availability: document.getElementById("availability").value
 
-    };
+};
 
     try{
 

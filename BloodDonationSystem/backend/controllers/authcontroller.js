@@ -1,153 +1,158 @@
-const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const db = require("../config/db");
 
-// ================= Register =================
+// ================= REGISTER =================
 
 const registerUser = async (req, res) => {
 
     const {
-        username,
+        fullname,
+        email,
+        phone,
         password,
         blood_group,
-        phone,
         address,
         availability
     } = req.body;
 
     if (
-        !username ||
+        !fullname ||
+        !email ||
+        !phone ||
         !password ||
         !blood_group ||
-        !phone ||
         !address
     ) {
-        return res.status(400).json({
-            success: false,
-            message: "Please fill all fields."
-        });
-    }
-
-    try {
-
-        db.query(
-            "SELECT * FROM users WHERE username = ?",
-            [username],
-            async (err, result) => {
-
-                if (err) {
-                    return res.status(500).json({
-                        success: false,
-                        message: err.message
-                    });
-                }
-
-                if (result.length > 0) {
-                    return res.status(400).json({
-                        success: false,
-                        message: "Username already exists."
-                    });
-                }
-
-                const hashedPassword = await bcrypt.hash(password, 10);
-
-                db.query(
-
-                    "INSERT INTO users(username,password,role) VALUES(?,?,?)",
-
-                    [
-                        username,
-                        hashedPassword,
-                        "user"
-                    ],
-
-                    (err, userResult) => {
-
-                        if (err) {
-                            return res.status(500).json({
-                                success: false,
-                                message: err.message
-                            });
-                        }
-
-                        const userId = userResult.insertId;
-
-                        db.query(
-
-                            `INSERT INTO donors
-                            (user_id,blood_group,phone,address,availability)
-                            VALUES(?,?,?,?,?)`,
-
-                            [
-                                userId,
-                                blood_group,
-                                phone,
-                                address,
-                                availability
-                            ],
-
-                            (err) => {
-
-                                if (err) {
-                                    return res.status(500).json({
-                                        success: false,
-                                        message: err.message
-                                    });
-                                }
-
-                                return res.status(201).json({
-
-                                    success: true,
-                                    message: "Registration Successful"
-
-                                });
-
-                            }
-
-                        );
-
-                    }
-
-                );
-
-            }
-
-        );
-
-    } catch (error) {
-
-        return res.status(500).json({
-
-            success: false,
-            message: error.message
-
-        });
-
-    }
-
-};
-
-
-// ================= LOGIN =================
-
-const loginUser = (req, res) => {
-
-    const { username, password } = req.body;
-
-    if (!username || !password) {
 
         return res.status(400).json({
             success: false,
-            message: "Please enter username and password."
+            message: "Please fill all required fields."
         });
 
     }
 
     db.query(
 
-        "SELECT * FROM users WHERE username = ?",
+        "SELECT * FROM users WHERE email = ?",
 
-        [username],
+        [email],
+
+        async (err, result) => {
+
+            if (err) {
+
+                return res.status(500).json({
+                    success: false,
+                    message: err.message
+                });
+
+            }
+
+            if (result.length > 0) {
+
+                return res.status(400).json({
+                    success: false,
+                    message: "Email already exists."
+                });
+
+            }
+
+            const hashedPassword = await bcrypt.hash(password, 10);
+
+            db.query(
+
+                `INSERT INTO users
+                (fullname,email,phone,password)
+                VALUES(?,?,?,?)`,
+
+                [
+                    fullname,
+                    email,
+                    phone,
+                    hashedPassword
+                ],
+
+                (err, userResult) => {
+
+                    if (err) {
+
+                        return res.status(500).json({
+                            success: false,
+                            message: err.message
+                        });
+
+                    }
+
+                    const userId = userResult.insertId;
+
+                    db.query(
+
+                        `INSERT INTO donors
+                        (user_id,blood_group,address,availability)
+                        VALUES(?,?,?,?)`,
+
+                        [
+                            userId,
+                            blood_group,
+                            address,
+                            availability || "available"
+                        ],
+
+                        (err) => {
+
+                            if (err) {
+
+                                return res.status(500).json({
+                                    success: false,
+                                    message: err.message
+                                });
+
+                            }
+
+                            return res.status(201).json({
+
+                                success: true,
+                                message: "Registration Successful"
+
+                            });
+
+                        }
+
+                    );
+
+                }
+
+            );
+
+        }
+
+    );
+
+};
+
+// ================= LOGIN =================
+
+const loginUser = (req, res) => {
+
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+
+        return res.status(400).json({
+
+            success: false,
+            message: "Please enter email and password."
+
+        });
+
+    }
+
+    db.query(
+
+        "SELECT * FROM users WHERE email = ?",
+
+        [email],
 
         async (err, result) => {
 
@@ -164,7 +169,7 @@ const loginUser = (req, res) => {
 
                 return res.status(401).json({
                     success: false,
-                    message: "Invalid username or password."
+                    message: "Invalid email or password."
                 });
 
             }
@@ -177,7 +182,7 @@ const loginUser = (req, res) => {
 
                 return res.status(401).json({
                     success: false,
-                    message: "Invalid username or password."
+                    message: "Invalid email or password."
                 });
 
             }
@@ -204,7 +209,8 @@ const loginUser = (req, res) => {
                 token,
                 user: {
                     id: user.id,
-                    username: user.username,
+                    fullname: user.fullname,
+                    email: user.email,
                     role: user.role
                 }
 
@@ -215,6 +221,7 @@ const loginUser = (req, res) => {
     );
 
 };
+
 module.exports = {
     registerUser,
     loginUser
