@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Blood Donation System</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body class="login-page">
+
+<div class="login-container">
+
+    <div class="login-card">
+
+        <h2>🩸 Blood Donation System</h2>
+        <p>Create Your Account</p>
+
+        <form id="registerForm">
+
+            <div class="input-group">
+                <label>Username</label>
+                <input
+                    type="text"
+                    id="username"
+                    placeholder="Enter Username"
+                    required
+                >
+            </div>
+
+            <div class="input-group">
+                <label>Blood Group</label>
+
+                <select id="blood_group" required>
+
+                    <option value="">Select Blood Group</option>
+
+                    <option>A+</option>
+                    <option>A-</option>
+                    <option>B+</option>
+                    <option>B-</option>
+                    <option>AB+</option>
+                    <option>AB-</option>
+                    <option>O+</option>
+                    <option>O-</option>
+
+                </select>
+
+            </div>
+
+            <div class="input-group">
+                <label>Phone</label>
+
+                <input
+                    type="text"
+                    id="phone"
+                    placeholder="98XXXXXXXX"
+                    required
+                >
+            </div>
+
+            <div class="input-group">
+                <label>Address</label>
+
+                <input
+                    type="text"
+                    id="address"
+                    placeholder="Enter Address"
+                    required
+                >
+            </div>
+
+            <div class="input-group">
+                <label>Availability</label>
+
+                <select id="availability">
+
+                    <option value="available">Available</option>
+                    <option value="unavailable">Unavailable</option>
+
+                </select>
+
+            </div>
+
+            <div class="input-group">
+                <label>Password</label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter Password"
+                    required
+                >
+            </div>
+
+            <button type="submit">Register</button>
+
+        </form>
+
+        <p class="register-link">
+            Already have an account?
+            <a href="login.html">Login</a>
+        </p>
+
+    </div>
+
+</div>
+
+<script src="js/register.js"></script>
+
+</body>
+</html>
