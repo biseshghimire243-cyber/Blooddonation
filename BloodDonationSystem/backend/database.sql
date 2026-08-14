@@ -34,3 +34,37 @@ CREATE TABLE IF NOT EXISTS donors (
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
+
+CREATE TABLE blood_requests (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+
+    patient_name VARCHAR(100) NOT NULL,
+
+    blood_group VARCHAR(5) NOT NULL,
+
+    units INT NOT NULL,
+
+    hospital VARCHAR(150) NOT NULL,
+
+    location VARCHAR(150) NOT NULL,
+
+    contact_name VARCHAR(100) NOT NULL,
+
+    phone VARCHAR(20) NOT NULL,
+
+    urgency ENUM(
+        'normal',
+        'urgent',
+        'emergency'
+    ) NOT NULL DEFAULT 'normal',
+
+    message TEXT,
+
+    status ENUM(
+        'pending',
+        'fulfilled',
+        'cancelled'
+    ) NOT NULL DEFAULT 'pending',
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
