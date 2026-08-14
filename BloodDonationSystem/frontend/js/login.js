@@ -1,66 +1,240 @@
-const password = document.getElementById("password");
-const toggle = document.getElementById("togglePassword");
+const loginForm = document.getElementById("loginForm");
 
-toggle.addEventListener("click", () => {
+const passwordInput =
+    document.getElementById("password");
 
-    if(password.type === "password"){
-        password.type = "text";
-        toggle.classList.remove("fa-eye");
-        toggle.classList.add("fa-eye-slash");
-    }else{
-        password.type = "password";
-        toggle.classList.remove("fa-eye-slash");
-        toggle.classList.add("fa-eye");
+const togglePassword =
+    document.getElementById("togglePassword");
+
+
+// ========================================
+// SHOW / HIDE PASSWORD
+// ========================================
+
+togglePassword.addEventListener("click", () => {
+
+    if (passwordInput.type === "password") {
+
+        passwordInput.type = "text";
+
+        togglePassword.classList.remove(
+            "fa-eye"
+        );
+
+        togglePassword.classList.add(
+            "fa-eye-slash"
+        );
+
+    } else {
+
+        passwordInput.type = "password";
+
+        togglePassword.classList.remove(
+            "fa-eye-slash"
+        );
+
+        togglePassword.classList.add(
+            "fa-eye"
+        );
+
     }
 
 });
 
-document.getElementById("loginForm").addEventListener("submit", async(e)=>{
 
-    e.preventDefault();
+// ========================================
+// LOGIN
+// ========================================
 
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+loginForm.addEventListener("submit", async (event) => {
 
-    try{
+    event.preventDefault();
 
-        const response = await fetch("http://localhost:5000/api/auth/login",{
 
-            method:"POST",
+    // Your HTML calls this "username"
+    // but the backend expects "email"
 
-            headers:{
-                "Content-Type":"application/json"
-            },
+    const email =
+        document.getElementById("username")
+            .value
+            .trim();
 
-            body:JSON.stringify({
-                username,
-                password
-            })
+    const password =
+        passwordInput.value;
 
-        });
+
+    // ========================================
+    // VALIDATION
+    // ========================================
+
+    if (!email || !password) {
+
+        showMessage(
+            "Please enter email and password.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    // ========================================
+    // BUTTON
+    // ========================================
+
+    const loginButton =
+        loginForm.querySelector(
+            "button[type='submit']"
+        );
+
+    loginButton.disabled = true;
+
+    loginButton.classList.add("loading");
+
+    loginButton.textContent = "Logging in...";
+
+
+    // ========================================
+    // SEND REQUEST
+    // ========================================
+
+    try {
+
+        const response = await fetch(
+            "/api/auth/login",
+            {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    email: email,
+
+                    password: password
+
+                })
+
+            }
+        );
+
 
         const data = await response.json();
 
-       if (data.success) {
 
-    localStorage.setItem("token", data.token);
-    localStorage.setItem("username", data.user.username);
-    localStorage.setItem("role", data.user.role);
+        // ========================================
+        // LOGIN FAILED
+        // ========================================
 
-    alert("Login Successful");
+        if (!response.ok) {
 
-    window.location.href = "dashboard.html";
+            showMessage(
+                data.message || "Invalid email or password.",
+                "error"
+            );
 
-} else {
+            return;
+        }
 
-    alert(data.message);
 
-}
+        // ========================================
+        // LOGIN SUCCESSFUL
+        // ========================================
 
-    }catch(error){
+        localStorage.setItem(
+            "token",
+            data.token
+        );
 
-        alert("Server Error");
+
+        localStorage.setItem(
+            "user",
+            JSON.stringify(data.user)
+        );
+
+
+        showMessage(
+            "Login successful! Redirecting...",
+            "success"
+        );
+
+
+        // ========================================
+        // REDIRECT
+        // ========================================
+
+        setTimeout(() => {
+
+            window.location.href =
+                "dashboard.html";
+
+        }, 1000);
+
+
+    } catch (error) {
+
+        console.error(
+            "Login Error:",
+            error
+        );
+
+
+        showMessage(
+            "Unable to connect to the server.",
+            "error"
+        );
+
+
+    } finally {
+
+        loginButton.disabled = false;
+
+        loginButton.classList.remove(
+            "loading"
+        );
+
+        loginButton.textContent = "Login";
 
     }
 
 });
+
+
+// ========================================
+// MESSAGE FUNCTION
+// ========================================
+
+function showMessage(message, type) {
+
+    let messageBox =
+        document.querySelector(
+            ".form-message"
+        );
+
+
+    // Create message box
+
+    if (!messageBox) {
+
+        messageBox =
+            document.createElement("div");
+
+        messageBox.className =
+            "form-message";
+
+        loginForm.appendChild(
+            messageBox
+        );
+
+    }
+
+
+    messageBox.textContent = message;
+
+    messageBox.className =
+        `form-message ${type}`;
+
+}
