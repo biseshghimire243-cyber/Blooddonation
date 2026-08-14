@@ -4,142 +4,143 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blood Donation System</title>
-
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body>
 
     <!-- ================= NAVBAR ================= -->
+    <header class="header">
+        <nav class="navbar">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-droplet icon-pulse"></i>
+                <span>Blood<b>Life</b></span>
+            </a>
 
-    <nav>
-        <div class="logo">
-            <i class="fa-solid fa-heart-circle-plus"></i>
-            Blood Donation
-        </div>
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-link active">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#feature" class="nav-link">Features</a></li>
+                <li><a href="login.html" class="nav-link">Login</a></li>
+                <li><a href="register.html" class="btn btn-primary">Register</a></li>
+            </ul>
 
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#feature">Features</a></li>
-            <li><a href="login.html">Login</a></li>
-            <li><a href="register.html" class="btn">Register</a></li>
-        </ul>
-    </nav>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
 
     <!-- ================= HERO ================= -->
-
     <section class="hero">
-
-        <div class="hero-text">
-
-            <h1>Donate Blood, Save Lives ❤️</h1>
-
-            <p>
-                Every drop of blood can save a life.
-                Join our Blood Donation System and become someone's hero today.
-            </p>
-
-            <div class="buttons">
-                <a href="register.html" class="btn">Become Donor</a>
-                <a href="#" class="btn2">Request Blood</a>
+        <div class="hero-container">
+            <div class="hero-text">
+                <span class="badge"><i class="fa-solid fa-heart-pulse"></i> Save Lives Today</span>
+                <h1>Donate Blood, <br><span class="highlight">Save A Life</span> ❤️</h1>
+                <p>
+                    Every drop of blood can bridge the gap between hope and healing. 
+                    Join our connected Blood Donation System and become someone's hero today.
+                </p>
+                <div class="hero-buttons">
+                    <a href="register.html" class="btn btn-primary btn-large">
+                        <i class="fa-solid fa-user-plus"></i> Become Donor
+                    </a>
+                    <a href="#" class="btn btn-outline btn-large">
+                        <i class="fa-solid fa-hand-holding-medical"></i> Request Blood
+                    </a>
+                </div>
             </div>
 
+            <div class="hero-image">
+                <div class="img-wrapper">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3209/3209265.png" alt="Blood Donation Illustration">
+                </div>
+            </div>
         </div>
-
-        <div class="hero-image">
-
-           <img src="https://cdn-icons-png.flaticon.com/512/3209/3209265.png" alt="Blood Donation">
-
-        </div>
-
     </section>
 
     <!-- ================= ABOUT ================= -->
-
-    <section id="about">
-
-        <h2>About Us</h2>
-
-        <p>
-
-            Our Blood Donation System connects blood donors with people
-            who urgently need blood. It helps hospitals, donors,
-            and patients communicate quickly and efficiently.
-
-        </p>
-
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <div class="section-header">
+                    <span class="sub-title">Who We Are</span>
+                    <h2>Connecting Donors With Every Urgent Need</h2>
+                </div>
+                <p>
+                    Our Blood Donation System bridges the gap between registered blood donors, patients in critical care, 
+                    and nearby hospital centers. We leverage modern web tools to ensure communication is instant, secure, 
+                    and reliable when every second counts.
+                </p>
+            </div>
+        </div>
     </section>
 
     <!-- ================= FEATURES ================= -->
-
-    <section id="feature">
-
-        <h2>Why Choose Us?</h2>
-
-        <div class="cards">
-
-            <div class="card">
-
-                <i class="fa-solid fa-user-group"></i>
-
-                <h3>Verified Donors</h3>
-
-                <p>
-                    Find trusted blood donors quickly.
-                </p>
-
+    <section id="feature" class="features-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="sub-title">Key Capabilities</span>
+                <h2>Why Choose Our System?</h2>
             </div>
 
-            <div class="card">
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-user-shield"></i>
+                    </div>
+                    <h3>Verified Donors</h3>
+                    <p>Access a trustworthy directory of pre-screened donors categorized by blood group and location.</p>
+                </div>
 
-                <i class="fa-solid fa-droplet"></i>
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <h3>Fast Blood Request</h3>
+                    <p>Broadcast urgent emergency blood needs with a single click to instantly notify active donors nearby.</p>
+                </div>
 
-                <h3>Fast Blood Request</h3>
-
-                <p>
-                    Request blood anytime with just one click.
-                </p>
-
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-hospital-user"></i>
+                    </div>
+                    <h3>Hospital Connectivity</h3>
+                    <p>Integrate directly with regional medical centers to locate available reserve units without delays.</p>
+                </div>
             </div>
-
-            <div class="card">
-
-                <i class="fa-solid fa-hospital"></i>
-
-                <h3>Nearby Hospitals</h3>
-
-                <p>
-                    Connect patients with nearby donors.
-                </p>
-
-            </div>
-
         </div>
-
     </section>
 
     <!-- ================= FOOTER ================= -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <div class="logo">
+                    <i class="fa-solid fa-droplet"></i>
+                    <span>Blood<b>Life</b></span>
+                </div>
+                <p>Donate Blood ❤️ Save Lives</p>
+            </div>
 
-    <footer>
-
-        <h3>Blood Donation System</h3>
-
-        <p>
-            Donate Blood ❤️ Save Lives
-        </p>
-
-        <small>
-
-            © 2026 Blood Donation System | B.Sc. CSIT Project
-
-        </small>
-
+            <div class="footer-links">
+                <p>© 2026 Blood Donation System | B.Sc. CSIT Project</p>
+            </div>
+        </div>
     </footer>
 
+    <!-- JavaScript -->
+    <script src="js/script.js"></script>
 </body>
 </html>
