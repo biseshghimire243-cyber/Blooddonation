@@ -1,0 +1,640 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333;
+    background: #fafafa;
+}
+
+
+/* ================= NAVBAR ================= */
+
+.navbar {
+    height: 75px;
+
+    padding: 0 8%;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    background: white;
+
+    border-bottom: 1px solid #eee;
+}
+
+.logo {
+    font-size: 24px;
+
+    font-weight: 800;
+
+    color: #c1121f;
+}
+
+.navbar nav {
+    display: flex;
+
+    gap: 28px;
+}
+
+.navbar nav a {
+    text-decoration: none;
+
+    color: #444;
+
+    font-weight: 600;
+
+    transition: 0.3s;
+}
+
+.navbar nav a:hover,
+.navbar nav a.active {
+    color: #c1121f;
+}
+
+
+/* ================= HERO ================= */
+
+.hero {
+    padding: 80px 20px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff2f2,
+            #ffffff
+        );
+}
+
+.hero-content {
+    max-width: 800px;
+
+    margin: auto;
+}
+
+.hero-label {
+    color: #c1121f;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+}
+
+.hero h1 {
+    font-size: 52px;
+
+    margin: 20px 0;
+
+    line-height: 1.15;
+}
+
+.hero h1 span {
+    display: block;
+
+    color: #c1121f;
+}
+
+.hero p {
+    max-width: 650px;
+
+    margin: auto;
+
+    color: #666;
+
+    font-size: 17px;
+
+    line-height: 1.7;
+}
+
+
+/* ================= SEARCH ================= */
+
+.search-section {
+    padding: 50px 20px 20px;
+}
+
+.search-card {
+    max-width: 1000px;
+
+    margin: auto;
+
+    background: white;
+
+    padding: 35px;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.08);
+
+    border: 1px solid #eee;
+}
+
+.search-title {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 30px;
+}
+
+.search-icon {
+    width: 55px;
+
+    height: 55px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #fff0f0;
+
+    color: #c1121f;
+
+    border-radius: 12px;
+
+    font-size: 22px;
+}
+
+.search-title h2 {
+    font-size: 24px;
+
+    margin-bottom: 5px;
+}
+
+.search-title p {
+    color: #777;
+
+    font-size: 14px;
+}
+
+
+/* Search Form */
+
+#searchForm {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr auto;
+
+    gap: 18px;
+
+    align-items: end;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 14px;
+
+    font-weight: 700;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+
+    height: 50px;
+
+    padding: 0 14px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 8px;
+
+    outline: none;
+
+    font-size: 14px;
+
+    background: white;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #c1121f;
+
+    box-shadow:
+        0 0 0 3px rgba(193, 18, 31, 0.08);
+}
+
+#searchForm button {
+    height: 50px;
+
+    padding: 0 25px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #c1121f;
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+#searchForm button:hover {
+    background: #9f0d18;
+
+    transform: translateY(-2px);
+}
+
+
+/* ================= RESULTS ================= */
+
+.results-section {
+    padding: 60px 20px 80px;
+}
+
+.results-container {
+    max-width: 1100px;
+
+    margin: auto;
+}
+
+.results-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: end;
+
+    margin-bottom: 30px;
+}
+
+.results-header span {
+    color: #c1121f;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+}
+
+.results-header h2 {
+    font-size: 32px;
+
+    margin-top: 8px;
+}
+
+#resultCount {
+    color: #777;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+
+/* ================= DONOR CARDS ================= */
+
+.donor-container {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 22px;
+}
+
+.donor-card {
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    border: 1px solid #eee;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.06);
+
+    transition: 0.3s;
+}
+
+.donor-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.donor-top {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 20px;
+}
+
+.donor-avatar {
+    width: 55px;
+
+    height: 55px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    border-radius: 50%;
+
+    background: #fff0f0;
+
+    color: #c1121f;
+
+    font-size: 23px;
+}
+
+.donor-name {
+    font-size: 18px;
+
+    font-weight: 700;
+
+    margin-bottom: 5px;
+}
+
+.available {
+    color: #16803a;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+.donor-info {
+    border-top: 1px solid #eee;
+
+    padding-top: 15px;
+}
+
+.info-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    padding: 8px 0;
+
+    font-size: 14px;
+}
+
+.info-row span:first-child {
+    color: #777;
+}
+
+.blood-badge {
+    color: #c1121f;
+
+    font-size: 20px;
+
+    font-weight: 800;
+}
+
+.contact-btn {
+    width: 100%;
+
+    height: 43px;
+
+    margin-top: 15px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: #c1121f;
+
+    color: white;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.contact-btn:hover {
+    background: #9f0d18;
+}
+
+
+/* ================= LOADING ================= */
+
+.loading {
+    text-align: center;
+
+    padding: 60px;
+
+    color: #c1121f;
+
+    font-weight: 600;
+
+    display: none;
+}
+
+.loading i {
+    margin-right: 8px;
+}
+
+
+/* ================= NO RESULTS ================= */
+
+.no-results {
+    display: none;
+
+    text-align: center;
+
+    padding: 60px 20px;
+
+    background: white;
+
+    border-radius: 15px;
+
+    border: 1px solid #eee;
+}
+
+.no-results i {
+    font-size: 45px;
+
+    color: #ddd;
+
+    margin-bottom: 15px;
+}
+
+.no-results h3 {
+    font-size: 21px;
+
+    margin-bottom: 8px;
+}
+
+.no-results p {
+    color: #777;
+}
+
+
+/* ================= EMERGENCY ================= */
+
+.emergency {
+    padding: 60px 20px;
+
+    text-align: center;
+
+    background: #c1121f;
+
+    color: white;
+}
+
+.emergency i {
+    font-size: 35px;
+
+    margin-bottom: 15px;
+}
+
+.emergency h2 {
+    font-size: 30px;
+
+    margin-bottom: 10px;
+}
+
+.emergency p {
+    color: #ffe4e4;
+
+    margin-bottom: 25px;
+}
+
+.emergency a {
+    display: inline-block;
+
+    padding: 13px 25px;
+
+    background: white;
+
+    color: #c1121f;
+
+    border-radius: 7px;
+
+    text-decoration: none;
+
+    font-weight: 700;
+}
+
+
+/* ================= FOOTER ================= */
+
+footer {
+    padding: 40px;
+
+    text-align: center;
+
+    background: #171717;
+
+    color: white;
+}
+
+.footer-logo {
+    color: #ff4757;
+
+    font-size: 24px;
+
+    font-weight: 800;
+
+    margin-bottom: 10px;
+}
+
+footer p {
+    color: #aaa;
+
+    margin-bottom: 10px;
+}
+
+footer small {
+    color: #777;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 900px) {
+
+    .donor-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    #searchForm {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    #searchForm button {
+        grid-column: 1 / -1;
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .navbar {
+        padding: 20px;
+    }
+
+    .navbar nav {
+        display: none;
+    }
+
+    .hero {
+        padding: 60px 20px;
+    }
+
+    .hero h1 {
+        font-size: 38px;
+    }
+
+    .search-card {
+        padding: 25px 20px;
+    }
+
+    #searchForm {
+        grid-template-columns: 1fr;
+    }
+
+    #searchForm button {
+        grid-column: auto;
+    }
+
+    .donor-container {
+        grid-template-columns: 1fr;
+    }
+
+    .results-header {
+        align-items: start;
+
+        flex-direction: column;
+
+        gap: 10px;
+    }
+
+}

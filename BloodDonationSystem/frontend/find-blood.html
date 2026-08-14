@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Find Blood | Blood Donation System</title>
+
+    <link rel="stylesheet" href="css/find-blood.css">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<header class="navbar">
+
+    <div class="logo">
+        🩸 BloodLife
+    </div>
+
+    <nav>
+
+        <a href="index.html">Home</a>
+
+        <a href="about.html">About</a>
+
+        <a href="features.html">Features</a>
+
+        <a href="find-blood.html" class="active">
+            Find Blood
+        </a>
+
+        <a href="request.html">
+            Request Blood
+        </a>
+
+        <a href="login.html">
+            Login
+        </a>
+
+    </nav>
+
+</header>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <span class="hero-label">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            FIND A DONOR
+        </span>
+
+        <h1>
+            Find the Right
+            <span>Blood Donor.</span>
+        </h1>
+
+        <p>
+            Search for available blood donors by blood group
+            and location. Every donor can make a difference.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= SEARCH ================= -->
+
+<section class="search-section">
+
+    <div class="search-card">
+
+        <div class="search-title">
+
+            <div class="search-icon">
+                <i class="fa-solid fa-droplet"></i>
+            </div>
+
+            <div>
+
+                <h2>Search Blood Donors</h2>
+
+                <p>
+                    Enter the required blood group and location.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <form id="searchForm">
+
+            <div class="form-group">
+
+                <label for="blood_group">
+                    Blood Group
+                </label>
+
+                <select id="blood_group">
+
+                    <option value="">
+                        All Blood Groups
+                    </option>
+
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="location">
+                    Location
+                </label>
+
+                <input
+                    type="text"
+                    id="location"
+                    placeholder="e.g. Kathmandu"
+                >
+
+            </div>
+
+
+            <button type="submit">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                Search Donors
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- ================= RESULTS ================= -->
+
+<section class="results-section">
+
+    <div class="results-container">
+
+        <div class="results-header">
+
+            <div>
+
+                <span>
+                    AVAILABLE DONORS
+                </span>
+
+                <h2>
+                    Donors Near You
+                </h2>
+
+            </div>
+
+            <div id="resultCount">
+                0 Donors Found
+            </div>
+
+        </div>
+
+
+        <!-- Loading -->
+
+        <div
+            id="loading"
+            class="loading"
+        >
+
+            <i class="fa-solid fa-spinner fa-spin"></i>
+
+            Searching donors...
+
+        </div>
+
+
+        <!-- No Results -->
+
+        <div
+            id="noResults"
+            class="no-results"
+        >
+
+            <i class="fa-solid fa-droplet"></i>
+
+            <h3>No donors found</h3>
+
+            <p>
+                Try another blood group or location.
+            </p>
+
+        </div>
+
+
+        <!-- Donor Cards -->
+
+        <div
+            id="donorContainer"
+            class="donor-container"
+        ></div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= EMERGENCY ================= -->
+
+<section class="emergency">
+
+    <i class="fa-solid fa-triangle-exclamation"></i>
+
+    <h2>
+        Need Blood Urgently?
+    </h2>
+
+    <p>
+        Submit a blood request and let us help you
+        find a suitable donor.
+    </p>
+
+    <a href="request.html">
+        Request Blood
+    </a>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="footer-logo">
+        🩸 BloodLife
+    </div>
+
+    <p>
+        Connecting donors. Saving lives.
+    </p>
+
+    <small>
+        © 2026 BloodLife. All Rights Reserved.
+    </small>
+
+</footer>
+
+
+<script src="js/find-blood.js"></script>
+
+</body>
+</html>

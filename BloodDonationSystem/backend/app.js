@@ -5,6 +5,7 @@ require("dotenv").config();
 
 const authRoutes = require("./routes/authRoutes");
 const requestRoutes = require("./routes/requestRoutes");
+const donorRoutes = require("./routes/donorRoutes");
 require("./config/db");
 
 const app = express();
@@ -19,6 +20,7 @@ app.use(express.static(path.join(__dirname, "../frontend")));
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/requests", requestRoutes);
+app.use("/api/donors", donorRoutes);
 
 // Test Route
 app.get("/", (req, res) => {
