@@ -6,6 +6,36 @@ console.log("Admin Dashboard Loaded");
 
 
 // ========================================
+// CHECK ADMIN LOGIN
+// ========================================
+
+const token = localStorage.getItem("token");
+const userData = localStorage.getItem("user");
+
+
+// If user is not logged in
+if (!token || !userData) {
+
+    window.location.href = "../login.html";
+
+}
+
+
+// Get user information
+const user = JSON.parse(userData);
+
+
+// Only admin can access this page
+if (user.role !== "admin") {
+
+    alert("Access denied. Admin only.");
+
+    window.location.href = "../dashboard.html";
+
+}
+
+
+// ========================================
 // LOGOUT
 // ========================================
 
@@ -26,17 +56,71 @@ if (logoutBtn) {
 
 
 // ========================================
-// TEMPORARY DASHBOARD VALUES
+// LOAD DASHBOARD STATISTICS
 // ========================================
 
-// For now these are 0.
-// In the next step we will replace them
-// with real MySQL data.
+async function loadDashboardStats() {
 
-document.getElementById("totalUsers").textContent = "0";
+    try {
 
-document.getElementById("totalDonors").textContent = "0";
+        const response = await fetch(
+            "http://localhost:5000/api/admin/dashboard"
+        );
 
-document.getElementById("totalRequests").textContent = "0";
 
-document.getElementById("emergencyRequests").textContent = "0";
+        const data = await response.json();
+
+
+        if (!response.ok || !data.success) {
+
+            console.error(
+                "Failed to load dashboard:",
+                data.message
+            );
+
+            return;
+
+        }
+
+
+        // ========================================
+        // DISPLAY REAL DATABASE VALUES
+        // ========================================
+
+        document.getElementById("totalUsers").textContent =
+            data.stats.totalUsers;
+
+
+        document.getElementById("totalDonors").textContent =
+            data.stats.totalDonors;
+
+
+        document.getElementById("totalRequests").textContent =
+            data.stats.totalRequests;
+
+
+        document.getElementById("emergencyRequests").textContent =
+            data.stats.emergencyRequests;
+
+
+        console.log(
+            "Dashboard statistics loaded successfully."
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Dashboard Error:",
+            error
+        );
+
+    }
+
+}
+
+
+// ========================================
+// LOAD DASHBOARD
+// ========================================
+
+loadDashboardStats();
