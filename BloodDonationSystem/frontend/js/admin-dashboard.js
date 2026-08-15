@@ -6,11 +6,14 @@ console.log("Admin Dashboard Loaded");
 
 
 // ========================================
-// GET LOGIN INFORMATION
+// GET LOGIN DATA
 // ========================================
 
 const token = localStorage.getItem("token");
 const userData = localStorage.getItem("user");
+
+console.log("Token:", token);
+console.log("User:", userData);
 
 
 // ========================================
@@ -19,26 +22,44 @@ const userData = localStorage.getItem("user");
 
 if (!token || !userData) {
 
-    alert("Please login first.");
+    console.log("No login information found.");
 
     window.location.href = "../login.html";
 
 } else {
 
-    const user = JSON.parse(userData);
+    try {
 
-    console.log("Logged in user:", user);
+        const user = JSON.parse(userData);
+
+        console.log("Current user:", user);
+        console.log("Current role:", user.role);
 
 
-    // ========================================
-    // CHECK ADMIN
-    // ========================================
+        // ========================================
+        // CHECK ADMIN
+        // ========================================
 
-    if (user.role !== "admin") {
+        if (user.role !== "admin") {
 
-        alert("You are not an administrator.");
+            console.log("User is not admin.");
 
-        window.location.href = "../dashboard.html";
+            alert("Admin access required.");
+
+            window.location.href = "../dashboard.html";
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "User data error:",
+            error
+        );
+
+        localStorage.removeItem("user");
+
+        window.location.href = "../login.html";
 
     }
 
@@ -46,17 +67,17 @@ if (!token || !userData) {
 
 
 // ========================================
-// LOGOUT
+// LOGOUT BUTTON
 // ========================================
 
-const logoutBtn = document.getElementById("logoutBtn");
+const logoutBtn =
+    document.getElementById("logoutBtn");
 
 if (logoutBtn) {
 
     logoutBtn.addEventListener("click", () => {
 
         localStorage.removeItem("token");
-
         localStorage.removeItem("user");
 
         window.location.href = "../login.html";
@@ -78,40 +99,47 @@ async function loadDashboardStats() {
             "http://localhost:5000/api/admin/dashboard"
         );
 
+
         const data = await response.json();
 
-        console.log("Dashboard data:", data);
+
+        console.log(
+            "Dashboard API:",
+            data
+        );
 
 
-        if (!data.success) {
+        if (data.success) {
 
-            console.error(
-                "Dashboard error:",
-                data.message
-            );
+            document.getElementById(
+                "totalUsers"
+            ).textContent =
+                data.stats.totalUsers;
 
-            return;
+
+            document.getElementById(
+                "totalDonors"
+            ).textContent =
+                data.stats.totalDonors;
+
+
+            document.getElementById(
+                "totalRequests"
+            ).textContent =
+                data.stats.totalRequests;
+
+
+            document.getElementById(
+                "emergencyRequests"
+            ).textContent =
+                data.stats.emergencyRequests;
 
         }
-
-
-        document.getElementById("totalUsers").textContent =
-            data.stats.totalUsers;
-
-        document.getElementById("totalDonors").textContent =
-            data.stats.totalDonors;
-
-        document.getElementById("totalRequests").textContent =
-            data.stats.totalRequests;
-
-        document.getElementById("emergencyRequests").textContent =
-            data.stats.emergencyRequests;
-
 
     } catch (error) {
 
         console.error(
-            "Dashboard connection error:",
+            "Dashboard API Error:",
             error
         );
 
