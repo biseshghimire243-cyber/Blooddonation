@@ -11,35 +11,31 @@ const togglePassword =
 // SHOW / HIDE PASSWORD
 // ========================================
 
-togglePassword.addEventListener("click", () => {
+if (togglePassword) {
 
-    if (passwordInput.type === "password") {
+    togglePassword.addEventListener("click", () => {
 
-        passwordInput.type = "text";
+        if (passwordInput.type === "password") {
 
-        togglePassword.classList.remove(
-            "fa-eye"
-        );
+            passwordInput.type = "text";
 
-        togglePassword.classList.add(
-            "fa-eye-slash"
-        );
+            togglePassword.classList.remove("fa-eye");
 
-    } else {
+            togglePassword.classList.add("fa-eye-slash");
 
-        passwordInput.type = "password";
+        } else {
 
-        togglePassword.classList.remove(
-            "fa-eye-slash"
-        );
+            passwordInput.type = "password";
 
-        togglePassword.classList.add(
-            "fa-eye"
-        );
+            togglePassword.classList.remove("fa-eye-slash");
 
-    }
+            togglePassword.classList.add("fa-eye");
 
-});
+        }
+
+    });
+
+}
 
 
 // ========================================
@@ -50,9 +46,6 @@ loginForm.addEventListener("submit", async (event) => {
 
     event.preventDefault();
 
-
-    // Your HTML calls this "username"
-    // but the backend expects "email"
 
     const email =
         document.getElementById("username")
@@ -79,7 +72,7 @@ loginForm.addEventListener("submit", async (event) => {
 
 
     // ========================================
-    // BUTTON
+    // LOGIN BUTTON
     // ========================================
 
     const loginButton =
@@ -95,7 +88,7 @@ loginForm.addEventListener("submit", async (event) => {
 
 
     // ========================================
-    // SEND REQUEST
+    // SEND LOGIN REQUEST
     // ========================================
 
     try {
@@ -125,14 +118,18 @@ loginForm.addEventListener("submit", async (event) => {
         const data = await response.json();
 
 
+        console.log("Login response:", data);
+
+
         // ========================================
         // LOGIN FAILED
         // ========================================
 
-        if (!response.ok) {
+        if (!response.ok || !data.success) {
 
             showMessage(
-                data.message || "Invalid email or password.",
+                data.message ||
+                "Invalid email or password.",
                 "error"
             );
 
@@ -141,7 +138,7 @@ loginForm.addEventListener("submit", async (event) => {
 
 
         // ========================================
-        // LOGIN SUCCESSFUL
+        // SAVE TOKEN
         // ========================================
 
         localStorage.setItem(
@@ -150,11 +147,27 @@ loginForm.addEventListener("submit", async (event) => {
         );
 
 
+        // ========================================
+        // SAVE USER
+        // ========================================
+
         localStorage.setItem(
             "user",
             JSON.stringify(data.user)
         );
 
+
+        console.log("Logged in user:", data.user);
+
+        console.log(
+            "User role:",
+            data.user.role
+        );
+
+
+        // ========================================
+        // SUCCESS MESSAGE
+        // ========================================
 
         showMessage(
             "Login successful! Redirecting...",
@@ -163,13 +176,30 @@ loginForm.addEventListener("submit", async (event) => {
 
 
         // ========================================
-        // REDIRECT
+        // ROLE BASED REDIRECT
         // ========================================
 
         setTimeout(() => {
 
-            window.location.href =
-                "dashboard.html";
+            if (data.user.role === "admin") {
+
+                console.log(
+                    "Admin detected. Opening admin dashboard."
+                );
+
+                window.location.href =
+                    "admin/dashboard.html";
+
+            } else {
+
+                console.log(
+                    "Normal user detected. Opening user dashboard."
+                );
+
+                window.location.href =
+                    "dashboard.html";
+
+            }
 
         }, 1000);
 
@@ -190,13 +220,17 @@ loginForm.addEventListener("submit", async (event) => {
 
     } finally {
 
-        loginButton.disabled = false;
+        setTimeout(() => {
 
-        loginButton.classList.remove(
-            "loading"
-        );
+            loginButton.disabled = false;
 
-        loginButton.textContent = "Login";
+            loginButton.classList.remove(
+                "loading"
+            );
+
+            loginButton.textContent = "Login";
+
+        }, 1000);
 
     }
 
@@ -214,8 +248,6 @@ function showMessage(message, type) {
             ".form-message"
         );
 
-
-    // Create message box
 
     if (!messageBox) {
 
