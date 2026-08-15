@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Admin Dashboard - Blood Donation System</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/admin-dashboard.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            🩸 BloodLife
+            <small>ADMIN PANEL</small>
+        </div>
+
+
+        <div class="admin-profile">
+
+            <div class="admin-icon">
+                <i class="fa-solid fa-user-shield"></i>
+            </div>
+
+            <div>
+                <h3>Administrator</h3>
+                <p>System Manager</p>
+            </div>
+
+        </div>
+
+
+        <nav>
+
+            <a href="dashboard.html" class="active">
+                <i class="fa-solid fa-chart-pie"></i>
+                Dashboard
+            </a>
+
+            <a href="#users">
+                <i class="fa-solid fa-users"></i>
+                Users
+            </a>
+
+            <a href="#donors">
+                <i class="fa-solid fa-hand-holding-droplet"></i>
+                Donors
+            </a>
+
+            <a href="#requests">
+                <i class="fa-solid fa-file-medical"></i>
+                Blood Requests
+            </a>
+
+            <a href="#inventory">
+                <i class="fa-solid fa-boxes-stacked"></i>
+                Blood Inventory
+            </a>
+
+        </nav>
+
+
+        <button id="logoutBtn" class="logout-btn">
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+            Logout
+
+        </button>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main-content">
+
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+            <div>
+
+                <p>Administration</p>
+
+                <h1>Admin Dashboard</h1>
+
+            </div>
+
+
+            <div class="system-status">
+
+                <span></span>
+
+                System Online
+
+            </div>
+
+        </header>
+
+
+        <!-- STATISTICS -->
+
+        <section class="stats">
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon users">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+
+                <div>
+
+                    <span>Total Users</span>
+
+                    <h2 id="totalUsers">0</h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon donors">
+                    <i class="fa-solid fa-droplet"></i>
+                </div>
+
+                <div>
+
+                    <span>Total Donors</span>
+
+                    <h2 id="totalDonors">0</h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon requests">
+                    <i class="fa-solid fa-file-medical"></i>
+                </div>
+
+                <div>
+
+                    <span>Blood Requests</span>
+
+                    <h2 id="totalRequests">0</h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon emergency">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+
+                <div>
+
+                    <span>Emergency Requests</span>
+
+                    <h2 id="emergencyRequests">0</h2>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- QUICK ACTIONS -->
+
+        <section class="quick-section">
+
+            <div class="section-title">
+
+                <span>MANAGEMENT</span>
+
+                <h2>Quick Actions</h2>
+
+            </div>
+
+
+            <div class="quick-actions">
+
+
+                <a href="#users">
+
+                    <i class="fa-solid fa-users"></i>
+
+                    <strong>Manage Users</strong>
+
+                    <small>
+                        View and manage registered users
+                    </small>
+
+                </a>
+
+
+                <a href="#donors">
+
+                    <i class="fa-solid fa-hand-holding-droplet"></i>
+
+                    <strong>Manage Donors</strong>
+
+                    <small>
+                        View available blood donors
+                    </small>
+
+                </a>
+
+
+                <a href="#requests">
+
+                    <i class="fa-solid fa-file-medical"></i>
+
+                    <strong>Blood Requests</strong>
+
+                    <small>
+                        Review blood requests
+                    </small>
+
+                </a>
+
+
+                <a href="#inventory">
+
+                    <i class="fa-solid fa-boxes-stacked"></i>
+
+                    <strong>Blood Inventory</strong>
+
+                    <small>
+                        Manage blood stock
+                    </small>
+
+                </a>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- RECENT REQUESTS -->
+
+        <section id="requests" class="requests-section">
+
+            <div class="section-title">
+
+                <span>RECENT ACTIVITY</span>
+
+                <h2>Recent Blood Requests</h2>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Patient</th>
+
+                            <th>Blood Group</th>
+
+                            <th>Units</th>
+
+                            <th>Hospital</th>
+
+                            <th>Urgency</th>
+
+                            <th>Status</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        <tr>
+
+                            <td colspan="6">
+                                No blood requests yet.
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- BLOOD INVENTORY -->
+
+        <section id="inventory" class="inventory-section">
+
+            <div class="section-title">
+
+                <span>BLOOD STOCK</span>
+
+                <h2>Blood Inventory</h2>
+
+            </div>
+
+
+            <div class="blood-grid">
+
+
+                <div class="blood-card">
+                    <span>A+</span>
+                    <strong>0</strong>
+                    <small>Units</small>
+                </div>
+
+
+                <div class="blood-card">
+                    <span>A-</span>
+                    <strong>0</strong>
+                    <small>Units</small>
+                </div>
+
+
+                <div class="blood-card">
+                    <span>B+</span>
+                    <strong>0</strong>
+                    <small>Units</small>
+                </div>
+
+
+                <div class="blood-card">
+                    <span>B-</span>
+                    <strong>0</strong>
+                    <small>Units</small>
+                </div>
+
+
+                <div class="blood-card">
+                    <span>AB+</span>
+                    <strong>0</strong>
+                    <small>Units</small>
+                </div>
+
+
+                <div class="blood-card">
+                    <span>AB-</span>
+                    <strong>0</strong>
+                    <small>Units</small>
+                </div>
+
+
+                <div class="blood-card">
+                    <span>O+</span>
+                    <strong>0</strong>
+                    <small>Units</small>
+                </div>
+
+
+                <div class="blood-card">
+                    <span>O-</span>
+                    <strong>0</strong>
+                    <small>Units</small>
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+</body>
+
+</html>
