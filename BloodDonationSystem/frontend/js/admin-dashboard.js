@@ -6,31 +6,41 @@ console.log("Admin Dashboard Loaded");
 
 
 // ========================================
-// CHECK ADMIN LOGIN
+// GET LOGIN INFORMATION
 // ========================================
 
 const token = localStorage.getItem("token");
 const userData = localStorage.getItem("user");
 
 
-// If user is not logged in
+// ========================================
+// CHECK LOGIN
+// ========================================
+
 if (!token || !userData) {
+
+    alert("Please login first.");
 
     window.location.href = "../login.html";
 
-}
+} else {
+
+    const user = JSON.parse(userData);
+
+    console.log("Logged in user:", user);
 
 
-// Get user information
-const user = JSON.parse(userData);
+    // ========================================
+    // CHECK ADMIN
+    // ========================================
 
+    if (user.role !== "admin") {
 
-// Only admin can access this page
-if (user.role !== "admin") {
+        alert("You are not an administrator.");
 
-    alert("Access denied. Admin only.");
+        window.location.href = "../dashboard.html";
 
-    window.location.href = "../dashboard.html";
+    }
 
 }
 
@@ -46,6 +56,7 @@ if (logoutBtn) {
     logoutBtn.addEventListener("click", () => {
 
         localStorage.removeItem("token");
+
         localStorage.removeItem("user");
 
         window.location.href = "../login.html";
@@ -67,14 +78,15 @@ async function loadDashboardStats() {
             "http://localhost:5000/api/admin/dashboard"
         );
 
-
         const data = await response.json();
 
+        console.log("Dashboard data:", data);
 
-        if (!response.ok || !data.success) {
+
+        if (!data.success) {
 
             console.error(
-                "Failed to load dashboard:",
+                "Dashboard error:",
                 data.message
             );
 
@@ -83,34 +95,23 @@ async function loadDashboardStats() {
         }
 
 
-        // ========================================
-        // DISPLAY REAL DATABASE VALUES
-        // ========================================
-
         document.getElementById("totalUsers").textContent =
             data.stats.totalUsers;
-
 
         document.getElementById("totalDonors").textContent =
             data.stats.totalDonors;
 
-
         document.getElementById("totalRequests").textContent =
             data.stats.totalRequests;
-
 
         document.getElementById("emergencyRequests").textContent =
             data.stats.emergencyRequests;
 
 
-        console.log(
-            "Dashboard statistics loaded successfully."
-        );
-
     } catch (error) {
 
         console.error(
-            "Dashboard Error:",
+            "Dashboard connection error:",
             error
         );
 
@@ -118,9 +119,5 @@ async function loadDashboardStats() {
 
 }
 
-
-// ========================================
-// LOAD DASHBOARD
-// ========================================
 
 loadDashboardStats();
