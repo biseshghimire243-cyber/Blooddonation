@@ -5,18 +5,14 @@
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Admin Dashboard - Blood Donation System</title>
 
-    <link
-    rel="stylesheet"
-    href="/css/admin-dashboard.css"
->
+    <!-- ADMIN DASHBOARD CSS -->
+    <link rel="stylesheet" href="/css/admin-dashboard.css">
 
+    <!-- FONT AWESOME -->
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -26,7 +22,9 @@
 
 <body>
 
-    <!-- SIDEBAR -->
+    <!-- ========================================
+         SIDEBAR
+    ========================================= -->
 
     <aside class="sidebar">
 
@@ -34,7 +32,6 @@
             🩸 BloodLife
             <small>ADMIN PANEL</small>
         </div>
-
 
         <div class="admin-profile">
 
@@ -49,10 +46,9 @@
 
         </div>
 
-
         <nav>
 
-            <a href="dashboard.html" class="active">
+            <a href="/admin/dashboard.html" class="active">
                 <i class="fa-solid fa-chart-pie"></i>
                 Dashboard
             </a>
@@ -79,7 +75,6 @@
 
         </nav>
 
-
         <button id="logoutBtn" class="logout-btn">
 
             <i class="fa-solid fa-right-from-bracket"></i>
@@ -91,7 +86,9 @@
     </aside>
 
 
-    <!-- MAIN CONTENT -->
+    <!-- ========================================
+         MAIN CONTENT
+    ========================================= -->
 
     <main class="main-content">
 
@@ -108,7 +105,6 @@
 
             </div>
 
-
             <div class="system-status">
 
                 <span></span>
@@ -120,10 +116,13 @@
         </header>
 
 
-        <!-- STATISTICS -->
+        <!-- ========================================
+             STATISTICS
+        ========================================= -->
 
         <section class="stats">
 
+            <!-- TOTAL USERS -->
 
             <div class="stat-card">
 
@@ -142,6 +141,8 @@
             </div>
 
 
+            <!-- TOTAL DONORS -->
+
             <div class="stat-card">
 
                 <div class="stat-icon donors">
@@ -158,6 +159,8 @@
 
             </div>
 
+
+            <!-- TOTAL REQUESTS -->
 
             <div class="stat-card">
 
@@ -176,6 +179,8 @@
             </div>
 
 
+            <!-- EMERGENCY REQUESTS -->
+
             <div class="stat-card">
 
                 <div class="stat-icon emergency">
@@ -192,11 +197,12 @@
 
             </div>
 
-
         </section>
 
 
-        <!-- QUICK ACTIONS -->
+        <!-- ========================================
+             QUICK ACTIONS
+        ========================================= -->
 
         <section class="quick-section">
 
@@ -210,7 +216,6 @@
 
 
             <div class="quick-actions">
-
 
                 <a href="#users">
 
@@ -263,13 +268,14 @@
 
                 </a>
 
-
             </div>
 
         </section>
 
 
-        <!-- RECENT REQUESTS -->
+        <!-- ========================================
+             RECENT BLOOD REQUESTS
+        ========================================= -->
 
         <section id="requests" class="requests-section">
 
@@ -291,15 +297,10 @@
                         <tr>
 
                             <th>Patient</th>
-
                             <th>Blood Group</th>
-
                             <th>Units</th>
-
                             <th>Hospital</th>
-
                             <th>Urgency</th>
-
                             <th>Status</th>
 
                         </tr>
@@ -326,7 +327,9 @@
         </section>
 
 
-        <!-- BLOOD INVENTORY -->
+        <!-- ========================================
+             BLOOD INVENTORY
+        ========================================= -->
 
         <section id="inventory" class="inventory-section">
 
@@ -341,13 +344,11 @@
 
             <div class="blood-grid">
 
-
                 <div class="blood-card">
                     <span>A+</span>
                     <strong>0</strong>
                     <small>Units</small>
                 </div>
-
 
                 <div class="blood-card">
                     <span>A-</span>
@@ -355,13 +356,11 @@
                     <small>Units</small>
                 </div>
 
-
                 <div class="blood-card">
                     <span>B+</span>
                     <strong>0</strong>
                     <small>Units</small>
                 </div>
-
 
                 <div class="blood-card">
                     <span>B-</span>
@@ -369,13 +368,11 @@
                     <small>Units</small>
                 </div>
 
-
                 <div class="blood-card">
                     <span>AB+</span>
                     <strong>0</strong>
                     <small>Units</small>
                 </div>
-
 
                 <div class="blood-card">
                     <span>AB-</span>
@@ -383,13 +380,11 @@
                     <small>Units</small>
                 </div>
 
-
                 <div class="blood-card">
                     <span>O+</span>
                     <strong>0</strong>
                     <small>Units</small>
                 </div>
-
 
                 <div class="blood-card">
                     <span>O-</span>
@@ -397,16 +392,15 @@
                     <small>Units</small>
                 </div>
 
-
             </div>
 
         </section>
 
-
     </main>
 
-    <script src="../js/admin-dashboard.js"></script>
 
+    <!-- ADMIN DASHBOARD JAVASCRIPT -->
+    <script src="/js/admin-dashboard.js"></script>
 
 </body>
 
