@@ -156,6 +156,11 @@ loginForm.addEventListener("submit", async (event) => {
             JSON.stringify(data.user)
         );
 
+        localStorage.setItem(
+    "username",
+    data.user.fullname
+);
+
 
         console.log("Logged in user:", data.user);
 
