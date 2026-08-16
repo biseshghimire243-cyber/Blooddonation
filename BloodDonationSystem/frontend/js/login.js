@@ -1,17 +1,19 @@
+// ========================================
+// LOGIN FORM
+// ========================================
+
 const loginForm = document.getElementById("loginForm");
 
-const passwordInput =
-    document.getElementById("password");
+const passwordInput = document.getElementById("password");
 
-const togglePassword =
-    document.getElementById("togglePassword");
+const togglePassword = document.getElementById("togglePassword");
 
 
 // ========================================
 // SHOW / HIDE PASSWORD
 // ========================================
 
-if (togglePassword) {
+if (togglePassword && passwordInput) {
 
     togglePassword.addEventListener("click", () => {
 
@@ -42,204 +44,276 @@ if (togglePassword) {
 // LOGIN
 // ========================================
 
-loginForm.addEventListener("submit", async (event) => {
+if (loginForm) {
 
-    event.preventDefault();
+    loginForm.addEventListener("submit", async (event) => {
 
-
-    const email =
-        document.getElementById("username")
-            .value
-            .trim();
-
-    const password =
-        passwordInput.value;
-
-
-    // ========================================
-    // VALIDATION
-    // ========================================
-
-    if (!email || !password) {
-
-        showMessage(
-            "Please enter email and password.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    // ========================================
-    // LOGIN BUTTON
-    // ========================================
-
-    const loginButton =
-        loginForm.querySelector(
-            "button[type='submit']"
-        );
-
-    loginButton.disabled = true;
-
-    loginButton.classList.add("loading");
-
-    loginButton.textContent = "Logging in...";
-
-
-    // ========================================
-    // SEND LOGIN REQUEST
-    // ========================================
-
-    try {
-
-        const response = await fetch(
-            "/api/auth/login",
-            {
-
-                method: "POST",
-
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify({
-
-                    email: email,
-
-                    password: password
-
-                })
-
-            }
-        );
-
-
-        const data = await response.json();
-
-
-        console.log("Login response:", data);
+        event.preventDefault();
 
 
         // ========================================
-        // LOGIN FAILED
+        // GET INPUT VALUES
         // ========================================
 
-        if (!response.ok || !data.success) {
+        const emailInput =
+            document.getElementById("username");
+
+        const email =
+            emailInput
+                ? emailInput.value.trim()
+                : "";
+
+        const password =
+            passwordInput
+                ? passwordInput.value
+                : "";
+
+
+        // ========================================
+        // VALIDATION
+        // ========================================
+
+        if (!email || !password) {
 
             showMessage(
-                data.message ||
-                "Invalid email or password.",
+                "Please enter email and password.",
                 "error"
             );
 
             return;
+
         }
 
 
         // ========================================
-        // SAVE TOKEN
+        // LOGIN BUTTON
         // ========================================
 
-        localStorage.setItem(
-            "token",
-            data.token
-        );
+        const loginButton =
+            loginForm.querySelector(
+                "button[type='submit']"
+            );
 
+        if (loginButton) {
 
-        // ========================================
-        // SAVE USER
-        // ========================================
+            loginButton.disabled = true;
 
-        localStorage.setItem(
-            "user",
-            JSON.stringify(data.user)
-        );
+            loginButton.classList.add("loading");
 
-        localStorage.setItem(
-    "username",
-    data.user.fullname
-);
+            loginButton.textContent =
+                "Logging in...";
 
-
-        console.log("Logged in user:", data.user);
-
-        console.log(
-            "User role:",
-            data.user.role
-        );
+        }
 
 
         // ========================================
-        // SUCCESS MESSAGE
+        // SEND LOGIN REQUEST
         // ========================================
 
-        showMessage(
-            "Login successful! Redirecting...",
-            "success"
-        );
+        try {
+
+            const response = await fetch(
+                "/api/auth/login",
+                {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        email: email,
+
+                        password: password
+
+                    })
+
+                }
+            );
 
 
-        // ========================================
-        // ROLE BASED REDIRECT
-        // ========================================
+            // ========================================
+            // GET SERVER RESPONSE
+            // ========================================
 
-        setTimeout(() => {
+            const data =
+                await response.json();
 
-            if (data.user.role === "admin") {
 
-                console.log(
-                    "Admin detected. Opening admin dashboard."
+            console.log(
+                "Login response:",
+                data
+            );
+
+
+            // ========================================
+            // LOGIN FAILED
+            // ========================================
+
+            if (!response.ok || !data.success) {
+
+                showMessage(
+                    data.message ||
+                    "Invalid email or password.",
+                    "error"
                 );
 
-                window.location.href =
-                    "admin/dashboard.html";
-
-            } else {
-
-                console.log(
-                    "Normal user detected. Opening user dashboard."
-                );
-
-                window.location.href =
-                    "dashboard.html";
+                return;
 
             }
 
-        }, 1000);
+
+            // ========================================
+            // CHECK TOKEN
+            // ========================================
+
+            if (!data.token) {
+
+                showMessage(
+                    "Login failed: server did not return a token.",
+                    "error"
+                );
+
+                return;
+
+            }
 
 
-    } catch (error) {
+            // ========================================
+            // CHECK USER DATA
+            // ========================================
 
-        console.error(
-            "Login Error:",
-            error
-        );
+            if (!data.user) {
+
+                showMessage(
+                    "Login failed: user information is missing.",
+                    "error"
+                );
+
+                return;
+
+            }
 
 
-        showMessage(
-            "Unable to connect to the server.",
-            "error"
-        );
+            // ========================================
+            // SAVE TOKEN
+            // ========================================
 
-
-    } finally {
-
-        setTimeout(() => {
-
-            loginButton.disabled = false;
-
-            loginButton.classList.remove(
-                "loading"
+            localStorage.setItem(
+                "token",
+                data.token
             );
 
-            loginButton.textContent = "Login";
 
-        }, 1000);
+            // ========================================
+            // SAVE USER
+            // ========================================
 
-    }
+            localStorage.setItem(
+                "user",
+                JSON.stringify(data.user)
+            );
 
-});
+
+            // ========================================
+            // SAVE USERNAME
+            // ========================================
+
+            localStorage.setItem(
+                "username",
+                data.user.fullname
+            );
+
+
+            // ========================================
+            // CONSOLE INFORMATION
+            // ========================================
+
+            console.log(
+                "Login successful!"
+            );
+
+            console.log(
+                "Logged in user:",
+                data.user
+            );
+
+            console.log(
+                "User role:",
+                data.user.role
+            );
+
+
+            // ========================================
+            // SUCCESS MESSAGE
+            // ========================================
+
+            showMessage(
+                "Login successful! Redirecting...",
+                "success"
+            );
+
+
+            // ========================================
+            // ADMIN DASHBOARD REDIRECT
+            // ========================================
+
+            setTimeout(() => {
+
+                window.location.href =
+                    "/admin/dashboard.html";
+
+            }, 1000);
+
+
+        } catch (error) {
+
+            // ========================================
+            // CONNECTION ERROR
+            // ========================================
+
+            console.error(
+                "Login Error:",
+                error
+            );
+
+
+            showMessage(
+                "Unable to connect to the server.",
+                "error"
+            );
+
+
+        } finally {
+
+            // ========================================
+            // RESET BUTTON
+            // ========================================
+
+            setTimeout(() => {
+
+                if (loginButton) {
+
+                    loginButton.disabled = false;
+
+                    loginButton.classList.remove(
+                        "loading"
+                    );
+
+                    loginButton.textContent =
+                        "Login";
+
+                }
+
+            }, 1000);
+
+        }
+
+    });
+
+}
 
 
 // ========================================
@@ -248,11 +322,20 @@ loginForm.addEventListener("submit", async (event) => {
 
 function showMessage(message, type) {
 
+    if (!loginForm) {
+        return;
+    }
+
+
     let messageBox =
         document.querySelector(
             ".form-message"
         );
 
+
+    // ========================================
+    // CREATE MESSAGE BOX
+    // ========================================
 
     if (!messageBox) {
 
@@ -269,7 +352,12 @@ function showMessage(message, type) {
     }
 
 
-    messageBox.textContent = message;
+    // ========================================
+    // SHOW MESSAGE
+    // ========================================
+
+    messageBox.textContent =
+        message;
 
     messageBox.className =
         `form-message ${type}`;
