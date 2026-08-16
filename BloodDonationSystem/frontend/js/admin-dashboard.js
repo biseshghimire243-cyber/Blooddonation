@@ -1,65 +1,40 @@
-// ========================================
-// ADMIN DASHBOARD
-// ========================================
-
-console.log("Admin Dashboard Loaded");
+console.log("ADMIN DASHBOARD LOADED");
 
 
 // ========================================
-// GET LOGIN DATA
+// SHOW CURRENT LOGIN DATA
 // ========================================
 
 const token = localStorage.getItem("token");
 const userData = localStorage.getItem("user");
 
-console.log("Token:", token);
-console.log("User:", userData);
+console.log("TOKEN:", token);
+console.log("USER DATA:", userData);
 
 
 // ========================================
-// CHECK LOGIN
+// DO NOT REDIRECT ANYWHERE
 // ========================================
 
-if (!token || !userData) {
-
-    console.log("No login information found.");
-
-    window.location.href = "../login.html";
-
-} else {
+if (userData) {
 
     try {
 
         const user = JSON.parse(userData);
 
-        console.log("Current user:", user);
-        console.log("Current role:", user.role);
+        console.log("LOGGED IN USER:", user);
 
-
-        // ========================================
-        // CHECK ADMIN
-        // ========================================
-
-        if (user.role !== "admin") {
-
-            console.log("User is not admin.");
-
-            alert("Admin access required.");
-
-            window.location.href = "../dashboard.html";
-
-        }
+        console.log(
+            "USER ROLE:",
+            user.role
+        );
 
     } catch (error) {
 
         console.error(
-            "User data error:",
+            "Could not read user data:",
             error
         );
-
-        localStorage.removeItem("user");
-
-        window.location.href = "../login.html";
 
     }
 
@@ -78,9 +53,11 @@ if (logoutBtn) {
     logoutBtn.addEventListener("click", () => {
 
         localStorage.removeItem("token");
+
         localStorage.removeItem("user");
 
-        window.location.href = "../login.html";
+        window.location.href =
+            "../login.html";
 
     });
 
@@ -88,7 +65,7 @@ if (logoutBtn) {
 
 
 // ========================================
-// LOAD DASHBOARD STATISTICS
+// LOAD DASHBOARD DATA
 // ========================================
 
 async function loadDashboardStats() {
@@ -96,50 +73,71 @@ async function loadDashboardStats() {
     try {
 
         const response = await fetch(
-            "http://localhost:5000/api/admin/dashboard"
+            "/api/admin/dashboard"
         );
-
 
         const data = await response.json();
 
-
         console.log(
-            "Dashboard API:",
+            "ADMIN API RESPONSE:",
             data
         );
 
 
         if (data.success) {
 
-            document.getElementById(
-                "totalUsers"
-            ).textContent =
-                data.stats.totalUsers;
+            const totalUsers =
+                document.getElementById("totalUsers");
+
+            const totalDonors =
+                document.getElementById("totalDonors");
+
+            const totalRequests =
+                document.getElementById("totalRequests");
+
+            const emergencyRequests =
+                document.getElementById(
+                    "emergencyRequests"
+                );
 
 
-            document.getElementById(
-                "totalDonors"
-            ).textContent =
-                data.stats.totalDonors;
+            if (totalUsers) {
+
+                totalUsers.textContent =
+                    data.stats.totalUsers;
+
+            }
 
 
-            document.getElementById(
-                "totalRequests"
-            ).textContent =
-                data.stats.totalRequests;
+            if (totalDonors) {
+
+                totalDonors.textContent =
+                    data.stats.totalDonors;
+
+            }
 
 
-            document.getElementById(
-                "emergencyRequests"
-            ).textContent =
-                data.stats.emergencyRequests;
+            if (totalRequests) {
+
+                totalRequests.textContent =
+                    data.stats.totalRequests;
+
+            }
+
+
+            if (emergencyRequests) {
+
+                emergencyRequests.textContent =
+                    data.stats.emergencyRequests;
+
+            }
 
         }
 
     } catch (error) {
 
         console.error(
-            "Dashboard API Error:",
+            "ADMIN API ERROR:",
             error
         );
 
